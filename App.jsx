@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 const AGENT_NAME = "AI Assistant";
 const AGENT_AVATAR = "🤖";
 
-const systemPrompt = `You are a helpful WhatsApp AI assistant. Keep responses concise and conversational — like real WhatsApp messages. Use short paragraphs. You can use emojis naturally. Be friendly, helpful, and direct. Never write long walls of text; break things up into short messages if needed.`;
+const systemPrompt = `You are a helpful WhatsApp AI assistant. Keep responses concise and conversational — like real WhatsApp messages. Use short paragraphs. You can use emojis naturally. Be frie[...]
 
 function TypingIndicator() {
   return (
@@ -56,7 +56,12 @@ export default function WhatsAppAgent() {
 
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": "YOUR_KEY_HERE",
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
@@ -255,7 +260,7 @@ const styles = {
     flex: 1,
     overflowY: "auto",
     padding: "12px 10px",
-    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5b5a8' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5b5a8' f[...]
   },
   dateBadge: {
     textAlign: "center",
@@ -414,4 +419,3 @@ const styles = {
     flexShrink: 0,
   },
 };
-
